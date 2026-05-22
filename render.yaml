@@ -15,7 +15,7 @@ services:
         value: https://portfolio-lk.vercel.app
       - key: MONGODB_URI
         sync: false          # set manually in Render dashboard
-      - key: EMAIL_USER
+      - key: RESEND_API_KEY
         sync: false          # set manually in Render dashboard
-      - key: EMAIL_PASS
-        sync: false          # set manually in Render dashboard
+      - key: EMAIL_TO
+        value: leonardsengoma07@gmail.com

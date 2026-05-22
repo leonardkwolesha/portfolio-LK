@@ -1,36 +1,14 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 /**
- * Build a fresh transporter each time so env vars are always read
- * after dotenv has loaded. Also strips spaces from the App Password
- * (Google shows it as "xxxx xxxx xxxx xxxx" but SMTP needs no spaces).
+ * Verify mailer is configured — called once at server startup.
+ * Logs ✅/❌ so you know immediately whether the API key is present.
  */
-const createTransporter = () =>
-  nodemailer.createTransport({
-    host:   'smtp.gmail.com',
-    port:   587,
-    secure: false, // STARTTLS — more reliable than port-465 SSL
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: (process.env.EMAIL_PASS || '').replace(/\s+/g, ''),
-    },
-    tls: {
-      rejectUnauthorized: false, // avoids cert issues in some environments
-    },
-  });
-
-/**
- * Called once at server startup. Logs ✅/❌ so you know immediately
- * whether Gmail auth is working before the first real submission.
- */
-const verifyMailer = async () => {
-  try {
-    const t = createTransporter();
-    await t.verify();
-    console.log('✅ Mailer ready — Gmail SMTP connected');
-  } catch (err) {
-    console.error('❌ Mailer verify failed:', err.code, '|', err.message);
-    console.error('   → Check EMAIL_USER / EMAIL_PASS in backend/.env');
+const verifyMailer = () => {
+  if (!process.env.RESEND_API_KEY) {
+    console.error('❌ Mailer: RESEND_API_KEY is not set');
+  } else {
+    console.log('✅ Mailer ready — Resend API key found');
   }
 };
 
@@ -41,6 +19,8 @@ const verifyMailer = async () => {
  * @param {{ name: string, email: string, message: string }} data
  */
 const sendContactNotification = async ({ name, email, message }) => {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
   const escapedMessage = message
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -130,15 +110,17 @@ const sendContactNotification = async ({ name, email, message }) => {
 </html>
   `.trim();
 
-  const transporter = createTransporter();
-
-  await transporter.sendMail({
-    from:    `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-    to:      process.env.EMAIL_USER,
-    replyTo: email,
-    subject: `New message from ${name} — Portfolio`,
+  const { error } = await resend.emails.send({
+    from:     'Portfolio Contact <onboarding@resend.dev>',
+    to:       [process.env.EMAIL_TO || process.env.EMAIL_USER],
+    reply_to: email,
+    subject:  `New message from ${name} — Portfolio`,
     html,
   });
+
+  if (error) {
+    throw new Error(`Resend error: ${error.message}`);
+  }
 };
 
 module.exports = { sendContactNotification, verifyMailer };
