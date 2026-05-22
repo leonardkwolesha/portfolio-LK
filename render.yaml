@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: portfolio-lk-api
+    env: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: https://portfolio-lk.vercel.app
+      - key: MONGODB_URI
+        sync: false          # set manually in Render dashboard
+      - key: EMAIL_USER
+        sync: false          # set manually in Render dashboard
+      - key: EMAIL_PASS
+        sync: false          # set manually in Render dashboard
