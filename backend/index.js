@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:3000',
-  process.env.CLIENT_URL,               // set on Render: https://portfolio-lk-six.vercel.app
+  process.env.CLIENT_URL,               // set on Render: https://portfolio-lk-six.vercel.app → https://portfolio-lk.onrender.com
 ].filter(Boolean);
 
 app.use(cors({

@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: portfolio-lk-api
+    name: portfolio-lk
     env: node
     region: oregon
     plan: free
