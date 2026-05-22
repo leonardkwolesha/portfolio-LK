@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\HP\\\\Documents\\\\leonard\\\\myprojects\\\\portfolio-leonard\" -Recurse -Depth 3)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "PowerShell(New-Item *)",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const names = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('linked'\\)\\); console.log\\(names\\)\")",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const names = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\('github'\\)\\); console.log\\(names.slice\\(0,5\\)\\)\")",
+      "Bash(node -e \"const fi = require\\('react-icons/fi'\\); const names = Object.keys\\(fi\\).filter\\(k => k.toLowerCase\\(\\).includes\\('github'\\) || k.toLowerCase\\(\\).includes\\('linkedin'\\) || k.toLowerCase\\(\\).includes\\('twitter'\\)\\); console.log\\(names\\)\")",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); const names = Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).startsWith\\('sigit'\\)\\); console.log\\(names\\)\")",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\(x86\\)/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
+      "Read(//c/Program Files/Microsoft/Edge/Application/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5176/)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --screenshot=C:/Users/HP/Documents/leonard/myprojects/portfolio-leonard/screenshot.png --window-size=1440,900 --no-sandbox --disable-gpu http://localhost:5176/)",
+      "Bash(echo \"exit: $?\")",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --screenshot=C:/Users/HP/Documents/leonard/myprojects/portfolio-leonard/screenshot_tall.png --window-size=1440,4000 --no-sandbox --disable-gpu --virtual-time-budget=5000 http://localhost:5176/)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
