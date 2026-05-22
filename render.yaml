@@ -12,7 +12,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: CLIENT_URL
-        value: https://portfolio-lk.vercel.app
+        value: https://portfolio-lk-six.vercel.app
       - key: MONGODB_URI
         sync: false          # set manually in Render dashboard
       - key: RESEND_API_KEY
